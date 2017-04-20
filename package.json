@@ -1,0 +1,21 @@
+{
+  "name": "kwok_smart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.2",
+    "johnny-five": "^0.10.9",
+    "serialport": "^4.0.7",
+    "socket-io": "^1.0.0",
+    "socket.io": "^1.7.3",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

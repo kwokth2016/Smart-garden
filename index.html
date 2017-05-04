@@ -18,22 +18,26 @@
     var receiveData = "";
     var temp = [];
     var value = 0;
+    var light, temperature,humidity, soil, waterlevel1, waterlevel2;
     socket.on("Data is ready", function(data){
       receiveData = data;
-      // console.log(receiveData);
-      temp = receiveData.split(",");
-      console.log(temp[1].substring(8));
-      value = temp[1].substring(8);
+      console.log(receiveData);
+      light = receiveData.light;
+      temperature = receiveData.temperature;
+      humidity = receiveData.humidity;
+      soil = receiveData.soil;
+      waterlevel1 = receiveData.waterlevel1;
+      waterlevel2 = receiveData.waterlevel2;
     });
     	window.onload = function () {
 		// initial values of dataPoints
 		var dps = [
-		{label: "Light", y: 125}	,
-		{label: "Temperture", y: 332},
-		{label: "Humidity", y: 55},
-		{label: "Soil Moisture", y: 46},
-		{label: "Water level 1", y: 32},
-    {label: "Water level 2", y: 32}
+		{label: "Light", y: light}	,
+		{label: "Temperature", y: temperature},
+		{label: "Humidity", y: humidity},
+		{label: "Soil Moisture", y: soil},
+		{label: "Water level 1", y: waterlevel1},
+    {label: "Water level 2", y: waterlevel2}
 		];
     var currentdate = new Date();
 		var datetime = "Data up to: "+currentdate;
@@ -68,14 +72,13 @@
 		var updateInterval = 1000;  // milliseconds
 
 		var updateChart = function () {
-			// Selecting a random dataPoint
-			var dataPointIndex = Math.round(Math.random()*4);		
-
-			// generating random value
-			var deltaY = Math.round(2 + Math.random() *(-2-2));	
-
-			// adding random value to random dataPoint
-			dps[dataPointIndex].y = (dps[dataPointIndex].y + deltaY) > 0 ? dps[dataPointIndex].y + deltaY : 0 ;
+			
+      dps[0].y = receiveData.light;
+      dps[1].y = receiveData.temperature;
+      dps[2].y = receiveData.humidity;
+      dps[3].y = receiveData.soil;
+      dps[4].y = receiveData.waterlevel1;
+      dps[5].y = receiveData.waterlevel2;
 
 			// updating legend text. 
 			currentdate = new Date();
@@ -120,22 +123,25 @@
               <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Controller</a>
+              <a class="nav-link" href="controller.html">Controller</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Analytics - Temperture</a>
+              <a class="nav-link" href="light.html">Analytics -Light</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Analytics - Humidity</a>
+              <a class="nav-link" href="temperature.html">Analytics - Temperature</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Analytics - Soil Moisture</a>
+              <a class="nav-link" href="humidity.html">Analytics - Humidity</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Analytics - Water pump</a>
+              <a class="nav-link" href="soil.html">Analytics - Soil Moisture</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Analytics -Light</a>
+              <a class="nav-link" href="waterlevel1.html">Analytics - Water tank</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="waterlevel2.html">Analytics - Liquid fertilizer</a>
             </li>
           </ul>
 

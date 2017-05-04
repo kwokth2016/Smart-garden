@@ -65,7 +65,7 @@
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-          <h4>Real-time Light Sensors</h4>
+          <h4>Real-time Water level Sensors in liquid fertilizer tank</h4>
 
             <section class="row text-center placeholders">
             <div id="visualization" class="col-8 " style="height: 250px; width: 400;">
@@ -74,23 +74,18 @@
             <br><br><br><br><br><br><br><br>
             <section class="row text-left placeholders">
               <div class="col-8">
-              <h4> Advise for light intensity</h4>
+              <h4> Advise for Waterlevel</h4>
               </div>
                 <section class="row text-center placeholders">
                 <div class="col-6 col-sm-3 placeholder">
-                  <img src="img/bright.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-                  <h4>Value below 60</h4>
-                  <div class="text-muted"><p id="text1">Light High intensity -- Close to light source, be careful the light source's' heat damage the plant</p></div>
+                  <img src="img/waterlow.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                  <h4>Reading below 50</h4>
+                  <div class="text-muted"><p id="text1">Liquid fertilizer -- Low liquid fertilizer and the system will alert to refill the liquid fertilizer</p></div>
                 </div>
                 <div class="col-6 col-sm-3 placeholder">
-                  <img src="img/normal.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-                  <h4>In between 60 to 400</h4>
-                  <span class="text-muted"><p id="text2">Room Light Intensity -- Good for the plant</p></span>
-                </div>
-                <div class="col-6 col-sm-3 placeholder">
-                  <img src="img/darker.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-                  <h4>Higher than 400</h4>
-                  <span class="text-muted"><p id="text3">Low Light Intensity -- System will turn on the light for you</p></span>
+                  <img src="img/waterfull.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                  <h4>Above 50 </h4>
+                  <span class="text-muted"><p id="text2">Liquid fertilizer -- Enough liquid fertilizer in liquid fertilizer tank</p></span>
                 </div>
               </section>
             </section>
@@ -110,40 +105,28 @@
     var DELAY = 1000; // delay in ms to add new data points
     var socket = io();
     var receiveData = "";
-    var receiveTest;
     var temp = [];
     var value = 0;
     socket.on("Data is ready", function(data){
-      receiveData = data;
-      console.log(receiveData.light);
-      value = receiveData.light;
 
+      receiveData = data;
+      console.log(receiveData.water2);
+      value = receiveData.water2;
       //Set hightlight
-      var mark1 ,mark2, mark3;
-      if(value <= 60){
+      var mark1 ,mark2;
+      if(value <= 50){
         mark1 = document.getElementById('text1');
-        mark1.innerHTML = '<mark>'+'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plant'+'</mark>';
+        mark1.innerHTML = '<mark>'+'Liquid fertilizer -- Low liquid fertilizer and the system will alert to refill the liquid fertilizer'+'</mark>';
         mark2 = document.getElementById('text2');
-        mark2.innerHTML = 'Room Light Intensity -- Good for the plant';
-        mark3 = document.getElementById('text3');
-        mark3.innerHTML = 'Low Light Intensity -- System will turn on the light for you';
+        mark2.innerHTML = 'Liquid fertilizer -- Enough liquid fertilizer in liquid fertilizer tank';
      }
-      else if (value >60 && value <= 400){
+      else {
         mark1 = document.getElementById('text1');
-        mark1.innerHTML = 'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plant';
+        mark1.innerHTML = 'Liquid fertilizer -- Low liquid fertilizer and the system will alert to refill the liquid fertilizer';
         mark2 = document.getElementById('text2');
-        mark2.innerHTML = '<mark>'+'Room Light Intensity -- Good for the plant'+'</mark>';
-        mark3 = document.getElementById('text3');
-        mark3.innerHTML = 'Low Light Intensity -- System will turn on the light for you';  
+        mark2.innerHTML = '<mark>'+'Liquid fertilizer -- Enough liquid fertilizer in liquid fertilizer tank'+'</mark>'; 
       }
-      else{
-        mark1 = document.getElementById('text1');
-        mark1.innerHTML = 'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plant';
-        mark2 = document.getElementById('text2');
-        mark2.innerHTML = 'Room Light Intensity -- Good for the plant';
-        mark3 = document.getElementById('text3');
-        mark3.innerHTML = '<mark>'+'Low Light Intensity -- System will turn on the light for you'+'</mark>';  
-      }
+      
     });
 
     // create a graph2d with an (currently empty) dataset
@@ -156,7 +139,7 @@
       dataAxis: {
         left: {
           range: {
-            min:0, max: 1000
+            min:0, max: 900
           }
         }
       },

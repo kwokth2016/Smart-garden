@@ -110,14 +110,14 @@
     var DELAY = 1000; // delay in ms to add new data points
     var socket = io();
     var receiveData = "";
-    var receiveTest;
     var temp = [];
     var value = 0;
     socket.on("Data is ready", function(data){
       receiveData = data;
-      console.log(receiveData.light);
-      value = receiveData.light;
-
+      // console.log(receiveData);
+      temp = receiveData.split(",");
+      console.log(temp[1].substring(8));
+      value = temp[1].substring(8);
       //Set hightlight
       var mark1 ,mark2, mark3;
       if(value <= 60){
@@ -138,7 +138,7 @@
       }
       else{
         mark1 = document.getElementById('text1');
-        mark1.innerHTML = 'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plant';
+        mark1.innerHTML = 'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plantt';
         mark2 = document.getElementById('text2');
         mark2.innerHTML = 'Room Light Intensity -- Good for the plant';
         mark3 = document.getElementById('text3');

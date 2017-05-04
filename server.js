@@ -24,9 +24,9 @@ myPort.on('open',function(err){
   }
   console.log('Serial connected');
   myPort.on('data',function(data){
-    line = util.inspect(JSON.parse(data));
-    console.log(line);
-    io.emit("Data is ready", line.replace("\"", ""));
+    console.log(data);
+    var haha = JSON.parse(data);
+    io.emit("Data is ready",haha);
   });
 });
 

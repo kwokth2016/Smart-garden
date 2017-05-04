@@ -65,7 +65,7 @@
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-          <h4>Real-time Light Sensors</h4>
+          <h4>Real-time Temperature Sensors</h4>
 
             <section class="row text-center placeholders">
             <div id="visualization" class="col-8 " style="height: 250px; width: 400;">
@@ -74,23 +74,23 @@
             <br><br><br><br><br><br><br><br>
             <section class="row text-left placeholders">
               <div class="col-8">
-              <h4> Advise for light intensity</h4>
+              <h4> Advise for Temperature</h4>
               </div>
                 <section class="row text-center placeholders">
                 <div class="col-6 col-sm-3 placeholder">
-                  <img src="img/bright.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-                  <h4>Value below 60</h4>
-                  <div class="text-muted"><p id="text1">Light High intensity -- Close to light source, be careful the light source's' heat damage the plant</p></div>
+                  <img src="img/templow.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                  <h4>Temperture below 15</h4>
+                  <div class="text-muted"><p id="text1">Low Temperature  -- Please place in a room temperature and the buzzer will alert you</p></div>
                 </div>
                 <div class="col-6 col-sm-3 placeholder">
-                  <img src="img/normal.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-                  <h4>In between 60 to 400</h4>
-                  <span class="text-muted"><p id="text2">Room Light Intensity -- Good for the plant</p></span>
+                  <img src="img/tempnormal.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                  <h4>Room Temperture</h4>
+                  <span class="text-muted"><p id="text2">Room temperature -- Good for the plant</p></span>
                 </div>
                 <div class="col-6 col-sm-3 placeholder">
-                  <img src="img/darker.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-                  <h4>Higher than 400</h4>
-                  <span class="text-muted"><p id="text3">Low Light Intensity -- System will turn on the light for you</p></span>
+                  <img src="img/temphigh.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                  <h4>Higher than 35 degree celsius</h4>
+                  <span class="text-muted"><p id="text3">High temperature -- System will turn on the exhaust and the buzzer will alert you</p></span>
                 </div>
               </section>
             </section>
@@ -110,39 +110,39 @@
     var DELAY = 1000; // delay in ms to add new data points
     var socket = io();
     var receiveData = "";
-    var receiveTest;
     var temp = [];
     var value = 0;
     socket.on("Data is ready", function(data){
       receiveData = data;
-      console.log(receiveData.light);
-      value = receiveData.light;
+      // console.log(receiveData);
+      console.log(receiveData.temperature);
+      value = receiveData.temperature;
 
       //Set hightlight
       var mark1 ,mark2, mark3;
-      if(value <= 60){
+      if(value <= 10){
         mark1 = document.getElementById('text1');
-        mark1.innerHTML = '<mark>'+'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plant'+'</mark>';
+        mark1.innerHTML = '<mark>'+'Low Temperature  -- Please place in a room temperature and the buzzer will alert you'+'</mark>';
         mark2 = document.getElementById('text2');
-        mark2.innerHTML = 'Room Light Intensity -- Good for the plant';
+        mark2.innerHTML = 'Room temperature -- Good for the plant';
         mark3 = document.getElementById('text3');
-        mark3.innerHTML = 'Low Light Intensity -- System will turn on the light for you';
+        mark3.innerHTML = 'High temperature -- System will turn on the exhaust and the buzzer will alert you';
      }
-      else if (value >60 && value <= 400){
+      else if (value >20 && value < 35){
         mark1 = document.getElementById('text1');
-        mark1.innerHTML = 'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plant';
+        mark1.innerHTML = 'Low Temperature  -- Please place in a room temperature and the buzzer will alert you';
         mark2 = document.getElementById('text2');
-        mark2.innerHTML = '<mark>'+'Room Light Intensity -- Good for the plant'+'</mark>';
+        mark2.innerHTML = '<mark>'+'Room temperature -- Good for the plant'+'</mark>';
         mark3 = document.getElementById('text3');
-        mark3.innerHTML = 'Low Light Intensity -- System will turn on the light for you';  
+        mark3.innerHTML = 'High temperature -- System will turn on the exhaust and the buzzer will alert you';  
       }
       else{
         mark1 = document.getElementById('text1');
-        mark1.innerHTML = 'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plant';
+        mark1.innerHTML = 'Low Temperature  -- Please place in a room temperature and the buzzer will alert you';
         mark2 = document.getElementById('text2');
-        mark2.innerHTML = 'Room Light Intensity -- Good for the plant';
+        mark2.innerHTML = 'Room temperature -- Good for the plant';
         mark3 = document.getElementById('text3');
-        mark3.innerHTML = '<mark>'+'Low Light Intensity -- System will turn on the light for you'+'</mark>';  
+        mark3.innerHTML = '<mark>'+'High temperature -- System will turn on the exhaust and the buzzer will alert you'+'</mark>';  
       }
     });
 
@@ -156,7 +156,7 @@
       dataAxis: {
         left: {
           range: {
-            min:0, max: 1000
+            min:0, max: 60
           }
         }
       },

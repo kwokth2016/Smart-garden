@@ -1,0 +1,38 @@
+<script src="/socket.io/socket.io.js"></script>
+
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title>Smart Garden</title> 
+</head>
+<body>
+    <p id="text">HELlo world</p>
+</body>
+<!--<script>
+    var socket = io();
+    var receiveData = "";
+    var waterValue = [];
+    var lightValue = [];
+    var tempValue=[];
+    var element = document.getElementById("text");
+    socket.on("Data is ready", function(data){
+        receiveData = data;
+        console.log(receiveData);
+        element.innerHTML+=receiveData+"</br>";
+        // waterArr.push(data[0].water);
+        // console.log(data[2]);
+        var temp = receiveData.split(",");
+        console.log(temp);
+        //after split is array
+        //water value
+        console.log(temp[0].substring(8));
+        //light value
+        console.log(temp[1].substring(8));
+        //temp Value
+        console.log(temp[2].substring(14));
+        //humidity value
+        // console.log(temp[3].substring(11));
+
+        // waterValue.push(temp[0].substring(8));
+
+    });
+</script>-->

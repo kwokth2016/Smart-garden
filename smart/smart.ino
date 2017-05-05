@@ -53,7 +53,7 @@ void alert(){
   int waterlevel = analogRead(water);
   if(waterlevel<50)
   {
-   tone(buzzer, 500); // Send 1KHz sound signal...
+   tone(buzzer, 250); // Send 1KHz sound signal...
    delay(1000);        // ...for 1 sec
    noTone(buzzer);     // Stop sound...
    delay(1000);        // ...for 1sec
@@ -64,7 +64,7 @@ void alert(){
    tone(buzzer, 500); // Send 0.5KHz sound signal...
    delay(1000);        // ...for 1 sec
    noTone(buzzer);     // Stop sound...
-//   delay(1000);        // ...for 1sec
+   delay(1000);        // ...for 1sec
   }
   int temp = DHT.temperature;
   if(temp<15)
@@ -72,14 +72,14 @@ void alert(){
    tone(buzzer, 1000); // Send 1KHz sound signal...
    delay(1000);        // ...for 1 sec
    noTone(buzzer);     // Stop sound...
-//   delay(1000);        // ...for 1sec
+   delay(1000);        // ...for 1sec
   }
   if(temp>35)
   {
    tone(buzzer, 2000); // Send 2KHz sound signal...
    delay(1000);        // ...for 1 sec
    noTone(buzzer);     // Stop sound...
-//   delay(1000);        // ...for 1sec
+   delay(1000);        // ...for 1sec
   }
 }
 

@@ -71,7 +71,7 @@
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-          <h4>Real-time Light Sensors</h4>
+          <h4>Real-time Soil Moisture Sensors</h4>
 
             <section class="row text-center placeholders">
             <div id="visualization" class="col-8 " style="height: 250px; width: 400;">
@@ -80,23 +80,23 @@
             <br><br><br><br><br><br><br><br>
             <section class="row text-left placeholders">
               <div class="col-8">
-              <h4> Advise for light intensity</h4>
+              <h4> Advise for Soil Moisture</h4>
               </div>
                 <section class="row text-center placeholders">
                 <div class="col-6 col-sm-3 placeholder">
-                  <img src="img/bright.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-                  <h4>Value below 60</h4>
-                  <div class="text-muted"><p id="text1">Light High intensity -- Close to light source, be careful the light source's' heat damage the plant</p></div>
+                  <img src="img/soillow.jpg" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                  <h4>Value below 400</h4>
+                  <div class="text-muted"><p id="text1">Sensors in water -- Maybe too much water</p></div>
                 </div>
                 <div class="col-6 col-sm-3 placeholder">
-                  <img src="img/normal.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-                  <h4>In between 60 to 400</h4>
-                  <span class="text-muted"><p id="text2">Room Light Intensity -- Good for the plant</p></span>
+                  <img src="img/soilnormal.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                  <h4>In between 400 to 700</h4>
+                  <span class="text-muted"><p id="text2">Humid soil -- Good for the plant</p></span>
                 </div>
                 <div class="col-6 col-sm-3 placeholder">
-                  <img src="img/darker.png" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
-                  <h4>Higher than 400</h4>
-                  <span class="text-muted"><p id="text3">Low Light Intensity -- System will turn on the light for you</p></span>
+                  <img src="img/soildry.jpg" width="72" height="72" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
+                  <h4>Higher than 700</h4>
+                  <span class="text-muted"><p id="text3">Dry Soil -- System will turn on the water pump for you</p></span>
                 </div>
               </section>
             </section>
@@ -120,35 +120,34 @@
     var value = 0;
     socket.on("Data is ready", function(data){
       receiveData = data;
-      // console.log(receiveData);
-      temp = receiveData.split(",");
-      console.log(temp[1].substring(8));
-      value = temp[1].substring(8);
+      console.log(receiveData.Soil);
+      value = receiveData.Soil;
+      
       //Set hightlight
       var mark1 ,mark2, mark3;
-      if(value <= 60){
+      if(value <= 400){
         mark1 = document.getElementById('text1');
-        mark1.innerHTML = '<mark>'+'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plant'+'</mark>';
+        mark1.innerHTML = '<mark>'+'Sensors in water -- Maybe too much water'+'</mark>';
         mark2 = document.getElementById('text2');
-        mark2.innerHTML = 'Room Light Intensity -- Good for the plant';
+        mark2.innerHTML = 'Humid soil -- Good for the plant';
         mark3 = document.getElementById('text3');
-        mark3.innerHTML = 'Low Light Intensity -- System will turn on the light for you';
+        mark3.innerHTML = 'Dry Soil -- System will turn on the water pump for you';
      }
-      else if (value >60 && value <= 400){
+      else if (value > 400 && value <= 700){
         mark1 = document.getElementById('text1');
-        mark1.innerHTML = 'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plant';
+        mark1.innerHTML = 'Sensors in water -- Maybe too much water';
         mark2 = document.getElementById('text2');
-        mark2.innerHTML = '<mark>'+'Room Light Intensity -- Good for the plant'+'</mark>';
+        mark2.innerHTML = '<mark>'+'Humid soil -- Good for the plant'+'</mark>';
         mark3 = document.getElementById('text3');
-        mark3.innerHTML = 'Low Light Intensity -- System will turn on the light for you';  
+        mark3.innerHTML = 'Dry Soil -- System will turn on the water pump for you';  
       }
       else{
         mark1 = document.getElementById('text1');
-        mark1.innerHTML = 'Light High intensity -- May be to Close to light source, be careful the light source heat damages the plantt';
+        mark1.innerHTML = 'Sensors in water -- Maybe too much water';
         mark2 = document.getElementById('text2');
-        mark2.innerHTML = 'Room Light Intensity -- Good for the plant';
+        mark2.innerHTML = 'Humid soil -- Good for the plant';
         mark3 = document.getElementById('text3');
-        mark3.innerHTML = '<mark>'+'Low Light Intensity -- System will turn on the light for you'+'</mark>';  
+        mark3.innerHTML = '<mark>'+'Dry Soil -- System will turn on the water pump for you'+'</mark>';  
       }
     });
 

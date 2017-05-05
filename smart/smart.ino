@@ -25,6 +25,8 @@ void setup(){
   pinMode(atomizer,OUTPUT);
   pinMode(fan1,OUTPUT);
   pinMode(fan2,OUTPUT);
+  pinMode(pump1,OUTPUT);
+  pinMode(pump2,OUTPUT);
 }
 
 void prepareJson(){
@@ -86,8 +88,10 @@ void alert(){
 void response(){
   int lightlevel = analogRead(light);
   int temperaturelevel = DHT.temperature;
+  int humiditylevel = DHT.humidity;
+  int soilmoisturelevel = analogRead(soil);
   //led strip
-  if(lightlevel>400)
+  if(lightlevel>450)
     analogWrite(ledstrip,255);
   else
     analogWrite(ledstrip,0);
@@ -100,7 +104,21 @@ void response(){
     digitalWrite(fan1,HIGH);
     analogWrite(fan2,0);
   }
+  if(humiditylevel < 50 )
+    analogWrite(atomizer,255);
+  else
+  analogWrite(atomizer,0);
   
+  if(soilmoisturelevel > 700)
+  {
+    analogWrite(pump1,255);
+    analogWrite(pump2,255);
+  }
+  else
+  {
+    analogWrite(pump1,0);
+    analogWrite(pump2,0);
+  }
 }
 void loop()
 {

@@ -25,9 +25,9 @@
       light = receiveData.light;
       temperature = receiveData.temperature;
       humidity = receiveData.humidity;
-      soil = receiveData.soil;
-      waterlevel1 = receiveData.waterlevel1;
-      waterlevel2 = receiveData.waterlevel2;
+      soil = receiveData.Soil;
+      waterlevel1 = receiveData.water;
+      waterlevel2 = receiveData.water2;
     });
     	window.onload = function () {
 		// initial values of dataPoints
@@ -76,9 +76,9 @@
       dps[0].y = receiveData.light;
       dps[1].y = receiveData.temperature;
       dps[2].y = receiveData.humidity;
-      dps[3].y = receiveData.soil;
-      dps[4].y = receiveData.waterlevel1;
-      dps[5].y = receiveData.waterlevel2;
+      dps[3].y = receiveData.Soil;
+      dps[4].y = receiveData.water;
+      dps[5].y = receiveData.water2;
 
 			// updating legend text. 
 			currentdate = new Date();
